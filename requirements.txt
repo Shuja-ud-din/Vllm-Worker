@@ -1,11 +1,8 @@
-ray
-pandas
-pyarrow
-runpod~=1.7.0
-huggingface-hub
-packaging
-typing-extensions==4.7.1
+vllm==0.9.1
+transformers<4.54.0
 pydantic
 pydantic-settings
+huggingface-hub
 hf-transfer
-transformers<4.54.0
+uvicorn
+fastapi
