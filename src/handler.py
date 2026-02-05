@@ -33,7 +33,7 @@ async def create_engine():
         engine_args = AsyncEngineArgs(
             model=model_name,
             tensor_parallel_size=int(os.getenv("TENSOR_PARALLEL_SIZE", "1")),
-            dtype=int(os.getenv("DTYPE", "bfloat16")),
+            dtype=os.getenv("DTYPE", "bfloat16"),
             trust_remote_code=True,
             gpu_memory_utilization=0.95
         )
