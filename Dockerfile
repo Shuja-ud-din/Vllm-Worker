@@ -12,7 +12,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # Install vLLM and FlashInfer optimized attention
 ARG VLLM_VERSION=0.9.1
-RUN python3 -m pip install vllm==${VLLM_VERSION} flashinfer
+RUN python3 -m pip install vllm==${VLLM_VERSION}
 
 # Copy source code
 COPY src /src
