@@ -1,23 +1,25 @@
-FROM nvidia/cuda:12.1.0-base-ubuntu22.04
+FROM nvidia/cuda:12.1.1-devel-ubuntu22.04
 
-RUN apt-get update -y && apt-get install -y python3-pip git
+RUN apt-get update -y && apt-get install -y \
+    python3-pip git build-essential ninja-build
 
-# Upgrade pip
 RUN python3 -m pip install --upgrade pip
 
-# Install dependencies
-COPY requirements.txt .
+COPY requirements.txt /requirements.txt
 RUN --mount=type=cache,target=/root/.cache/pip \
-    python3 -m pip install --upgrade -r requirements.txt
+    pip install -r /requirements.txt
 
-# Install vLLM and FlashInfer optimized attention
+# Install vLLM
 ARG VLLM_VERSION=0.9.1
-RUN python3 -m pip install vllm==${VLLM_VERSION}
+RUN pip install vllm==${VLLM_VERSION}
 
-# Copy source code
+# Install Flash Attention 2 (BEST for H100/A100)
+RUN pip install flash-attn --no-build-isolation
+
+# Copy source
 COPY src /src
 WORKDIR /src
-ENV PYTHONPATH="/:/src"
 
-# Default command
-CMD ["python3", "handler.py"]
+ENV PYTHONPATH="/src"
+
+CMD ["python3", "-m", "handler"]

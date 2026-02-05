@@ -7,8 +7,8 @@ from vllm import AsyncLLMEngine
 from vllm.engine.arg_utils import AsyncEngineArgs
 from vllm.sampling_params import SamplingParams
 from vllm.utils import random_uuid
-from .utils import format_chat_prompt, create_error_response
-from .models import GenerationRequest, GenerationResponse, ChatCompletionRequest
+from utils import format_chat_prompt, create_error_response
+from models import GenerationRequest, GenerationResponse, ChatCompletionRequest
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
